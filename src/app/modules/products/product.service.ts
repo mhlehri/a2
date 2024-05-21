@@ -15,3 +15,11 @@ export const createProductService = async (product: IProduct) => {
   const result = await ProductModel.create(product);
   return result;
 };
+
+export const updateProductByIdService = async (
+  id: string,
+  product: IProduct
+) => {
+  const result = await ProductModel.findOneAndUpdate({ _id: id }, product);
+  return result;
+};

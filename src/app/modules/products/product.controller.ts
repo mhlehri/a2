@@ -3,6 +3,7 @@ import {
   createProductService,
   getProductService,
   getProductByIdService,
+  updateProductByIdService,
 } from "./product.service";
 import { studentValidationSchema } from "./product.validation";
 
@@ -41,6 +42,24 @@ export const createProduct = async (req: Request, res: Response) => {
     const product = req.body;
     const value = studentValidationSchema.parse(product);
     const result = await createProductService(value);
+    res.send({
+      success: true,
+      message: "Product created successfully",
+      data: result,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Failed product insertion" });
+  }
+};
+
+export const updateProductById = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.productId;
+    const product = req.body;
+    const value = studentValidationSchema.parse(product);
+    const result = await updateProductByIdService(id, value);
     res.send({
       success: true,
       message: "Product created successfully",
