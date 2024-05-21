@@ -6,8 +6,17 @@ export const getProductByIdService = async (productId: string) => {
   return result;
 };
 
-export const getProductService = async () => {
-  const result = await ProductModel.find();
+export const getProductService = async (searchTerm: string) => {
+  const filter: any = {};
+  if (searchTerm) {
+    filter.$or = [
+      { name: { $regex: searchTerm, $options: "i" } },
+      { description: { $regex: searchTerm, $options: "i" } },
+      { tags: { $regex: searchTerm, $options: "i" } },
+      { category: { $regex: searchTerm, $options: "i" } },
+    ];
+  }
+  const result = await ProductModel.find(filter);
   return result;
 };
 
@@ -21,5 +30,9 @@ export const updateProductByIdService = async (
   product: IProduct
 ) => {
   const result = await ProductModel.findOneAndUpdate({ _id: id }, product);
+  return result;
+};
+export const deleteProductByIdService = async (id: string) => {
+  const result = await ProductModel.findOneAndDelete({ _id: id });
   return result;
 };

@@ -1,6 +1,7 @@
 import express from "express";
 import {
   createProduct,
+  deleteProductById,
   getProduct,
   getProductById,
   updateProductById,
@@ -12,5 +13,7 @@ router.get("/", getProduct);
 router.get("/:productId", getProductById);
 router.post("/", createProduct);
 router.put("/:productId", updateProductById);
+router.delete("/:productId", deleteProductById);
+// router.get("/?searchTerm", );
 
 export const ProductRoute = router;
