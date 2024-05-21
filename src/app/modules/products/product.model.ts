@@ -1,5 +1,27 @@
 import mongoose from "mongoose";
-import { IProduct } from "./product.interface";
+import { IInventory, IProduct, IVariant } from "./product.interface";
+
+const variantsSchema = new mongoose.Schema<IVariant>({
+  type: {
+    type: String,
+    required: true,
+  },
+  value: {
+    type: String,
+    required: true,
+  },
+});
+
+const inventorySchema = new mongoose.Schema<IInventory>({
+  quantity: {
+    type: Number,
+    required: true,
+  },
+  inStock: {
+    type: Boolean,
+    required: true,
+  },
+});
 
 const productSchema = new mongoose.Schema<IProduct>({
   name: {
@@ -23,30 +45,10 @@ const productSchema = new mongoose.Schema<IProduct>({
     required: true,
   },
   variants: {
-    type: [
-      {
-        type: {
-          type: String,
-          required: true,
-        },
-        value: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+    type: [variantsSchema],
   },
   inventory: {
-    type: {
-      quantity: {
-        type: Number,
-        required: true,
-      },
-      inStock: {
-        type: Boolean,
-        required: true,
-      },
-    },
+    type: inventorySchema,
     required: true,
   },
 });
