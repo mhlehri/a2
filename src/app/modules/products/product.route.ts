@@ -14,6 +14,5 @@ router.get("/:productId", getProductById);
 router.post("/", createProduct);
 router.put("/:productId", updateProductById);
 router.delete("/:productId", deleteProductById);
-// router.get("/?searchTerm", );
 
 export const ProductRoute = router;

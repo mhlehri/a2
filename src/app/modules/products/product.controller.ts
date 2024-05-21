@@ -25,7 +25,6 @@ export const getProductById = async (req: Request, res: Response) => {
 export const getProduct = async (req: Request, res: Response) => {
   try {
     const searchTerm = req.query?.searchTerm;
-
     const result = await getProductService(searchTerm as string);
     res.status(200).send({
       success: true,
