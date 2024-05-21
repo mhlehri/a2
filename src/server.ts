@@ -4,18 +4,15 @@ import config from "./app/config";
 
 async function main() {
   try {
-    await mongoose
-      .connect(config.uri!)
-      .then(() => {
-        console.log("Connected to Mongoose");
-      })
-      .catch((err) => console.log(err, "Connection error"));
+    await mongoose.connect(config.uri!);
 
-    app.listen(3000, () => {
-      console.log("Server running on port 3000");
+    console.log("Connected  Mongoose");
+
+    app.listen(config.port, () => {
+      console.log("Server running on port" + config.port);
     });
   } catch (error) {
-    console.log((error as Error).message);
+    console.log(error, "error");
   }
 }
 
