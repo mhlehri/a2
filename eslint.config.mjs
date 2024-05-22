@@ -5,6 +5,7 @@ import tseslint from "typescript-eslint";
 export default [
   {
     languageOptions: { globals: globals.node },
+
     files: ["**/*.ts"],
     rules: {
       eqeqeq: "error",

@@ -1,5 +1,5 @@
 import { ProductModel } from "../products/product.model";
-import { IOder } from "./order.interface";
+import { IOder } from "./oder.interface";
 import { OrderModel } from "./order.model";
 
 export const getOrderService = async (email: string) => {
@@ -21,7 +21,11 @@ export const createOrderService = async (order: IOder) => {
   } else {
     const updatedQuantity = isExist?.inventory?.quantity - order?.quantity;
 
-    if (isExist.inventory.inStock && updatedQuantity >= 0) {
+    if (
+      isExist.inventory.inStock &&
+      updatedQuantity >= 0 &&
+      updatedQuantity <= isExist?.inventory?.quantity
+    ) {
       const result = await OrderModel.create(order);
 
       await ProductModel.updateOne(

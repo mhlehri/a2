@@ -26,6 +26,7 @@
   },
   "name": "assignment-2",
   "module": "src/server.ts",
+  "type": "commonjs",
   "peerDependencies": {
     "typescript": "^5.0.0"
   }

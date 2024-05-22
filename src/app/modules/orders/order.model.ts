@@ -1,5 +1,5 @@
-import mongoose, { mongo } from "mongoose";
-import { IOder } from "./order.interface";
+import mongoose from "mongoose";
+import { IOder } from "./oder.interface";
 
 const OrderSchema = new mongoose.Schema<IOder>({
   email: { type: "string", required: true },
