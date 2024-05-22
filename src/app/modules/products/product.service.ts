@@ -7,6 +7,7 @@ export const getProductByIdService = async (productId: string) => {
 };
 
 export const getProductService = async (searchTerm: string) => {
+  // filter by search term and return products. if there is no search term, it will return all products
   const filter: any = {};
   if (searchTerm) {
     filter.$or = [

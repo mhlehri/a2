@@ -2,9 +2,15 @@ import { ProductModel } from "../products/product.model";
 import { IOder } from "./order.interface";
 import { OrderModel } from "./order.model";
 
-export const getOrderService = async () => {
-  const result = await OrderModel.find();
-  return result;
+export const getOrderService = async (email: string) => {
+  // retrieve order by email. if email is not provided, it will return all orders
+  const emailQuery = email ? { email } : {};
+
+  const result = await OrderModel.find(emailQuery);
+  if (result.length > 0) {
+    return result;
+  }
+  throw new Error("Order not found");
 };
 
 export const createOrderService = async (order: IOder) => {
@@ -17,6 +23,7 @@ export const createOrderService = async (order: IOder) => {
 
     if (isExist.inventory.inStock && updatedQuantity >= 0) {
       const result = await OrderModel.create(order);
+
       await ProductModel.updateOne(
         { _id: id },
         {

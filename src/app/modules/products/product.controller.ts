@@ -10,6 +10,7 @@ import { productValidationSchema } from "./product.validation";
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
+    // getting product id from request params and fetch it by the id and send it to the user
     const id = req.params.productId;
     const result = await getProductByIdService(id);
     res.status(200).send({
@@ -24,6 +25,7 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const getProduct = async (req: Request, res: Response) => {
   try {
+    // if searchTerm is provided, it will return products based on the search term
     const searchTerm = req.query?.searchTerm;
     const result = await getProductService(searchTerm as string);
     res.status(200).send({
@@ -38,6 +40,7 @@ export const getProduct = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
+    // getting product from request body and validating it by Zod Schema and send it to DB
     const product = req.body;
     const value = productValidationSchema.parse(product);
     const result = await createProductService(value);
@@ -53,6 +56,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updateProductById = async (req: Request, res: Response) => {
   try {
+    // updating product by id and validating it by Zod Schema and update it
     const id = req.params.productId;
     const product = req.body;
     const value = productValidationSchema.parse(product);

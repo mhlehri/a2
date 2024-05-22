@@ -4,7 +4,8 @@ import { OrderValidationSchema } from "./order.validation";
 
 export const getOrder = async (req: Request, res: Response) => {
   try {
-    const result = await getOrderService();
+    const email = req.query?.email;
+    const result = await getOrderService(email as string);
     res.status(200).send({
       success: true,
       message: "Orders fetched successfully!",
