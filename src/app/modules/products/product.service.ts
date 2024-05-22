@@ -8,16 +8,18 @@ export const getProductByIdService = async (productId: string) => {
 
 export const getProductService = async (searchTerm: string) => {
   // filter by search term and return products. if there is no search term, it will return all products
-  const filter = {};
+
+  //eslint-disable-next-line
+  const searchQuery: any = {};
   if (searchTerm) {
-    filter.$or = [
+    searchQuery.$or = [
       { name: { $regex: searchTerm, $options: "i" } },
       { description: { $regex: searchTerm, $options: "i" } },
       { tags: { $regex: searchTerm, $options: "i" } },
       { category: { $regex: searchTerm, $options: "i" } },
     ];
   }
-  const result = await ProductModel.find(filter);
+  const result = await ProductModel.find(searchQuery);
   return result;
 };
 

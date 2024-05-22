@@ -12,7 +12,7 @@ app.use("/api/products", ProductRoute);
 app.use("/api/orders", OrderRoute);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+  res.json({ success: true, server: "running............." });
 });
 
 app.use("*", (req: Request, res: Response, next: NextFunction) => {
@@ -20,7 +20,6 @@ app.use("*", (req: Request, res: Response, next: NextFunction) => {
     success: false,
     message: "Route not found",
   });
-  next();
 });
 
 export default app;
