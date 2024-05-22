@@ -16,7 +16,10 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("*", (req: Request, res: Response, next: NextFunction) => {
-  res.status(404).send("404 Not Found");
+  res.status(404).send({
+    success: false,
+    message: "Route not found",
+  });
   next();
 });
 

@@ -1,14 +1,37 @@
 import { Request, Response } from "express";
-import { createOrderService } from "./order.service";
+import { createOrderService, getOrderService } from "./order.service";
+import { OrderValidationSchema } from "./order.validation";
+
+export const getOrder = async (req: Request, res: Response) => {
+  try {
+    const result = await getOrderService();
+    res.status(200).send({
+      success: true,
+      message: "Orders fetched successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
+};
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const order = req.body;
-    const result = await createOrderService(order);
+    const value = OrderValidationSchema.parse(order);
+    const result = await createOrderService(value);
     res.json({
       success: true,
-      message: "Order created successfully",
+      message: "Order created successfully!",
       data: result,
     });
-  } catch (error) {}
+  } catch (error) {
+    res.json({
+      success: false,
+      message: (error as Error).message,
+    });
+  }
 };

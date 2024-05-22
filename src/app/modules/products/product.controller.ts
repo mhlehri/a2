@@ -18,7 +18,7 @@ export const getProductById = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error });
+    res.status(500).json({ success: false, message: (error as Error).message });
   }
 };
 
@@ -32,7 +32,7 @@ export const getProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Product fetched failed" });
+    res.status(500).json({ success: false, message: (error as Error).message });
   }
 };
 
@@ -47,7 +47,7 @@ export const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error });
+    res.status(500).json({ success: false, message: (error as Error).message });
   }
 };
 
@@ -65,8 +65,7 @@ export const updateProductById = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Failed to update single product",
-      error,
+      message: (error as Error).message,
     });
   }
 };
@@ -84,8 +83,7 @@ export const deleteProductById = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Failed to delete single product",
-      error,
+      message: (error as Error).message,
     });
   }
 };
